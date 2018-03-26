@@ -1,0 +1,228 @@
+:root {
+    /* Colors */
+    --black: #272727;
+    --grey: #696773;
+    --grey50: #69677383;
+    --grey20: #69677325;
+    --grey10: #69677309;
+    --midgrey: #4b4a54;
+    --darkgrey: #43424a;
+    --darkgrey60: #43424a90;
+    --darkgrey20: #43424a63;
+    --white: #f9f9fa;
+    --white50: #f9f9fa77;
+    --white20: #f9f9fa44;
+    --red: #D60C13;
+    --blue: #387AB5;
+    --lightBlue: #479BE5;
+
+    /* Page Measures */
+    --headerHeight: 50px;
+    --headerContentPadding: 20px;
+    --pageHeight: calc(100vh - var(--headerHeight) - var(--headerContentPadding));
+    --sidebar: 200px;
+    --maxAppWidth: 1000px;
+    --minAppWidth: 500px;
+
+    /* Input Measures */
+    --inputHeight: 200px;
+    --actionbarHeight: 32px;
+    --contentEditableHeight: calc(var(--inputHeight) - var(--actionbarHeight));
+    --tagButtonHeight: 70px;
+
+    /* Timings */
+    --linkHover: .25s;
+    --longHover: calc(var(--linkHover) * 2);
+
+    /* Translations */
+    --buttonClickTranslation: 1.8px;
+}
+
+html {
+    /* border-box box model allows us to add padding and border to our elements without increasing their size */
+    box-sizing: border-box;
+    color: var(--black);
+    background: var(--darkgrey);
+    font-size: 13px;
+    font-family: "Slabo 13px", serif;
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+/*
+  WAT IS THIS?!
+  We inherit box-sizing: border-box; from our <html> selector
+  Apparently this is a bit better than applying box-sizing: border-box; directly to the * selector
+*/
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+img {
+    width: 100%;
+}
+
+button {
+    border-radius: 8px;    
+    outline: none;
+}
+
+/* Nav Styling */
+nav {
+    /* Fix Header */
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    height: var(--headerHeight);
+
+    /* Style */
+    background: var(--white);
+}
+/* End Nav Styling */
+
+/* Page Wrapper */
+#wrapper {
+    width: 100vw;
+    padding-top: calc(var(--headerHeight) + var(--headerContentPadding));
+    /* margin: 10px; */
+    display: grid;
+    grid-template-areas:
+    "paddingl content paddingr";
+    grid-template-columns: auto minmax(var(--minAppWidth), var(--maxAppWidth)) auto;
+}
+
+#content-wrapper {
+    min-height: var(--pageHeight);
+    background: var(--white);
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-areas:
+    "input sidebar";
+    grid-template-columns: auto var(--sidebar);
+    grid-area: content;
+}
+/* End Page Wrapper */
+
+/* Main Content */
+#content {
+    grid-area: input;
+}
+
+#input {
+    grid-area: input;
+}
+
+#input #campaign-title {
+    font-family: "Slabo 27px", serif;
+    font-size: 27px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+#input #tags {
+    height: var(--tagButtonHeight);
+    display: inline-block;
+}
+
+/* Tag Button Styles */
+#input #tags ul {
+    border: 1px solid var(--darkgrey20);
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 4px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+#input #tags ul > li * {
+    background: transparent;
+}
+
+#input #tags ul > li > button {
+    padding: 7px;
+    border: 1px solid transparent;
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+    background: var(--white);
+    transition: all var(--linkHover);
+}
+
+#input #tags ul > li > button:hover {
+    border: 1px solid var(--blue);
+}
+
+#input #tags ul > li > button:active {
+    background: var(--blue);
+    transform: translateY(var(--buttonClickTranslation));
+}
+
+button.pell-button {
+    width: 32px;
+}
+/* End Tag Button Styles */
+
+/* Input Panel Styles */
+#input #note-input{
+    border: 1px solid var(--darkgrey20);
+    border-radius: 10px;
+    max-height: var(--inputHeight);
+    padding: 4px;
+}
+
+.pell-actionbar {
+    height: var(--actionbarHeight);
+}
+
+.pell-content {
+    height: var(--contentEditableHeight);
+}
+
+/* Log Area (Below Input) */
+#log {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    grid-area: notes;
+}
+
+/* Filter Row */
+#filter {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* Save Button */
+#savebtn-main {
+    margin-left: auto;
+    border: 1px solid var(--darkgrey20);
+    background: var(--blue);
+    color: var(--white);
+    transition: all var(--linkHover);
+    padding: 2px 6px 2px 6px;
+    min-width: 60px;
+}
+#savebtn-main:hover {
+    background: var(--lightBlue);
+}
+#savebtn-main:active {
+    transform: translateY(1.8px);
+}
+/* End Save Button */
+/* End Filter Row */
+/* End Log Area */
+/* End Main Content */
+
+#sidebar {
+    grid-area: sidebar;
+}
