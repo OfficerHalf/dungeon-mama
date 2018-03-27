@@ -19,6 +19,7 @@
     },
     "globals": {
         "pell": true,
-        "Mark": true
+        "Mark": true,
+        "d20": true
     }
 }

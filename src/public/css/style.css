@@ -15,11 +15,13 @@
     --red: #D60C13;
     --blue: #387AB5;
     --lightBlue: #479BE5;
+    --borderColor: var(--darkgrey20);
 
     /* Page Measures */
+    --bigGap: 20px;
+    --medGap: 10px;
     --headerHeight: 50px;
-    --headerContentPadding: 20px;
-    --pageHeight: calc(100vh - var(--headerHeight) - var(--headerContentPadding));
+    --pageHeight: calc(100vh - var(--headerHeight) - var(--bigGap));
     --sidebar: 200px;
     --maxAppWidth: 1000px;
     --minAppWidth: 500px;
@@ -71,8 +73,39 @@ img {
 }
 
 button {
-    border-radius: 8px;    
+    border-radius: 8px;
     outline: none;
+    transition: all var(--linkHover);
+}
+
+button:active {
+    transform: translateY(1.8px);
+}
+
+.input-submit {
+    --inputSubmitBorderRadius: 6px;
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--borderColor);
+    border-radius: var(--inputSubmitBorderRadius);
+}
+
+.input-submit > input {
+    display: block;
+    border: 0;
+    border-right: 1px solid var(--borderColor);
+    width: 80%;
+    border-top-left-radius: var(--inputSubmitBorderRadius);
+    border-bottom-left-radius: var(--inputSubmitBorderRadius);
+    padding: 4px;
+}
+.input-submit > button {
+    display: block;
+    border-radius: 0;
+    border: 0;
+    width: 20%;
+    border-top-right-radius: var(--inputSubmitBorderRadius);
+    border-bottom-right-radius: var(--inputSubmitBorderRadius);
 }
 
 /* Nav Styling */
@@ -91,8 +124,7 @@ nav {
 /* Page Wrapper */
 #wrapper {
     width: 100vw;
-    padding-top: calc(var(--headerHeight) + var(--headerContentPadding));
-    /* margin: 10px; */
+    padding-top: calc(var(--headerHeight) + var(--bigGap));
     display: grid;
     grid-template-areas:
     "paddingl content paddingr";
@@ -103,10 +135,11 @@ nav {
     min-height: var(--pageHeight);
     background: var(--white);
     width: 100%;
-    padding: 10px;
+    padding: var(--bigGap);
     display: grid;
     grid-template-areas:
     "input sidebar";
+    grid-gap: var(--bigGap);
     grid-template-columns: auto var(--sidebar);
     grid-area: content;
 }
@@ -124,8 +157,8 @@ nav {
 #input #campaign-title {
     font-family: "Slabo 27px", serif;
     font-size: 27px;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: var(--medGap);
+    margin-bottom: var(--medGap);
 }
 
 #input #tags {
@@ -135,7 +168,7 @@ nav {
 
 /* Tag Button Styles */
 #input #tags ul {
-    border: 1px solid var(--darkgrey20);
+    border: 1px solid var(--borderColor);
     list-style: none;
     display: flex;
     margin: 0;
@@ -174,14 +207,16 @@ button.pell-button {
 
 /* Input Panel Styles */
 #input #note-input{
-    border: 1px solid var(--darkgrey20);
+    border: 1px solid var(--borderColor);
     border-radius: 10px;
     max-height: var(--inputHeight);
-    padding: 4px;
 }
 
 .pell-actionbar {
     height: var(--actionbarHeight);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .pell-content {
@@ -190,8 +225,8 @@ button.pell-button {
 
 /* Log Area (Below Input) */
 #log {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: var(--medGap);
+    padding-bottom: var(--medGap);
     grid-area: notes;
 }
 
@@ -205,7 +240,7 @@ button.pell-button {
 /* Save Button */
 #savebtn-main {
     margin-left: auto;
-    border: 1px solid var(--darkgrey20);
+    border: 1px solid var(--borderColor);
     background: var(--blue);
     color: var(--white);
     transition: all var(--linkHover);
@@ -225,4 +260,40 @@ button.pell-button {
 
 #sidebar {
     grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    --toolBorderRadius: 8px;
+    border: 1px solid var(--borderColor);
+    border-radius: var(--toolBorderRadius);
+}
+
+.sidebar-tool > .tool-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    background: var(--grey50);
+    border-top-left-radius: var(--toolBorderRadius);
+    border-top-right-radius: var(--toolBorderRadius);
+}
+
+.sidebar-tool > .tool-controls {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: calc(var(--bigGap) / 2);
+    padding-left: var(--bigGap);
+    padding-right: var(--bigGap);
+    padding-bottom: calc(var(--bigGap) / 2);
+    align-items: center;
+}
+
+.sidebar-tool > .tool-controls > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
