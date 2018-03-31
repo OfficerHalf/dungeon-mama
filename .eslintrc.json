@@ -20,6 +20,7 @@
     "globals": {
         "pell": true,
         "Mark": true,
-        "d20": true
+        "d20": true,
+        "getTimestamp": true
     }
 }

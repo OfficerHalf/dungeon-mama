@@ -1,4 +1,17 @@
+const tags = [ // eslint-disable-line
+    '@',
+    '^',
+    '#',
+    '$',
+    '!',
+    '%',
+    '*',
+    '-',
+    '§'
+];
 const logs = [];
+const timeout = 400;
+let highlightTimeout = null;
 let pellContent = '';
 
 
@@ -6,13 +19,28 @@ const logContainer = document.querySelector('#all-entries');
 
 function showLogs() {
     logContainer.innerHTML = '';
-    logs.forEach((log) => {
+    logs.forEach((logObj) => {
+        const timestamp = document.createElement('span');
+        timestamp.innerHTML = logObj.timestamp;
+        timestamp.classList.add('timestamp');
+        const log = document.createElement('div');
+        log.classList.add('highlight', 'log-entry');
+        log.innerHTML = logObj.log;
+        log.appendChild(timestamp);
         logContainer.appendChild(log);
     });
 }
 
+function highlight() {
+    console.log('Highlighting');
+}
+
 function handlePellInput(html) {
     pellContent = html;
+    if (highlightTimeout !== null) {
+        window.clearTimeout(highlightTimeout);
+    }
+    highlightTimeout = window.setTimeout(highlight, timeout);
 }
 
 /* Create pell element */
@@ -61,8 +89,6 @@ pell.init({
 const editorContent = document.querySelector('.pell-content'); // the contenteditable div that is pell
 editorContent.classList.add('highlight');
 
-// const highlightDivs = document.querySelectorAll('.highlight');
-
 /* Hook up tag buttons */
 function addTagToSelection() {
     const tagChar = this.firstChild.textContent;
@@ -98,10 +124,10 @@ function saveLog() {
     if (pellContent === '') {
         return;
     }
-    const log = document.createElement('div');
-    log.classList.add('highlight');
-    log.innerHTML = pellContent;
-    logs.unshift(log);
+    logs.unshift({
+        timestamp: getTimestamp(),
+        log: pellContent
+    });
     editorContent.innerHTML = '';
     pellContent = '';
     showLogs();

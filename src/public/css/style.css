@@ -76,6 +76,7 @@ button {
     border-radius: 8px;
     outline: none;
     transition: all var(--linkHover);
+    border: 1px solid var(--borderColor);
 }
 
 button:active {
@@ -253,6 +254,24 @@ button.pell-button {
 #savebtn-main:active {
     transform: translateY(1.8px);
 }
+
+.log-entry {
+    position: relative;
+    padding: var(--medGap);
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+    margin-top: var(--bigGap);
+    margin-bottom: var(--bigGap);
+}
+
+.timestamp {
+    color: var(--darkgrey60);
+    display: block;
+    position: absolute;
+    top: var(--medGap);
+    right: var(--medGap);
+}
+
 /* End Save Button */
 /* End Filter Row */
 /* End Log Area */
