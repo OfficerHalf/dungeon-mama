@@ -9,7 +9,7 @@ const tags = [ // eslint-disable-line
     '-',
     '§'
 ];
-const logs = [];
+let logs = [];
 const timeout = 400;
 let highlightTimeout = null;
 let pellContent = '';
@@ -133,5 +133,35 @@ function saveLog() {
     showLogs();
 }
 
+function exportLog() {
+    const download = document.createElement('a');
+    download.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify(logs))}`);
+    download.setAttribute('download', getTimestampFilename());
+    download.style.display = 'none';
+    document.body.appendChild(download);
+    download.click();
+    document.body.removeChild(download);
+}
+
+function importLog() { // eslint-disable-line
+    const upload = document.querySelector('#importFile');
+    if (upload.files && upload.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            logs = JSON.parse(e.target.result);
+            showLogs();
+            upload.value = '';
+        };
+        reader.readAsText(upload.files[0]);
+    }
+}
+
 const saveButton = document.querySelector('#savebtn-main');
+const importButton = document.querySelector('#import-logs');
+const exportButton = document.querySelector('#export-logs');
 saveButton.addEventListener('click', saveLog);
+importButton.addEventListener('click', () => {
+    const upload = document.querySelector('#importFile');
+    upload.click();
+});
+exportButton.addEventListener('click', exportLog);

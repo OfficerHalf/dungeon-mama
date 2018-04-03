@@ -21,6 +21,7 @@
         "pell": true,
         "Mark": true,
         "d20": true,
-        "getTimestamp": true
+        "getTimestamp": true,
+        "getTimestampFilename": true
     }
 }
